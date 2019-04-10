@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="viewModel"
+                type="com.ablenesi.posts.feature.detail.PostActivityViewModel"/>
+    </data>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".feature.detail.PostActivity">
+
+            <TextView
+                    style="@style/post_title"
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.title}"
+                    android:transitionName="@{viewModel.title}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Telus Health Launches Babylon App: Visit a Doctor via iPhone or Android"/>
+
+            <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/post_username(viewModel.postDetail.userName)}"
+                    app:layout_constraintTop_toBottomOf="@id/title"
+                    tools:text="by IPhoneInCanada"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+
+            <TextView
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.postDetail.content}"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/item_vertical_gutter"
+                    app:layout_constraintTop_toBottomOf="@id/username"
+                    tools:text="Eum non blanditiis soluta porro quibusdam voluptas\nvel voluptatem qui placeat dolores qui velit aut\nvel inventore aut cumque culpa explicabo aliquid at\nperspiciatis est et voluptatem dignissimos dolor itaque sit nam"/>
+
+            <TextView
+                    android:id="@+id/comments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@plurals/post_comments(viewModel.postDetail.comments, viewModel.postDetail.comments)}"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_marginTop="@dimen/item_vertical_gutter"
+                    android:textAllCaps="true"
+                    app:layout_constraintTop_toBottomOf="@id/content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="6 comments"/>
+
+            <androidx.constraintlayout.widget.Group
+                    android:id="@+id/content_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.loading ? View.GONE : View.VISIBLE}"
+                    app:constraint_referenced_ids="username,content,comments"/>
+
+            <ProgressBar
+                    android:id="@+id/loading_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title"
+                    tools:visibility="gone"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
