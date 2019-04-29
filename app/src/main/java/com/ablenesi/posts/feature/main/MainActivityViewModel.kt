@@ -3,21 +3,21 @@ package com.ablenesi.posts.feature.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ablenesi.posts.core.model.Post
+import com.ablenesi.posts.core.model.PostDetail
 import com.ablenesi.posts.core.repository.PostsRepository
 import io.reactivex.disposables.Disposable
 
 class MainActivityViewModel(postsRepository: PostsRepository) : ViewModel() {
-    private val _posts = MutableLiveData<List<Post>>()
+    private val _posts = MutableLiveData<List<PostDetail>>()
     private val _loading = MutableLiveData<Boolean>()
 
-    val posts: LiveData<List<Post>> = _posts
+    val posts: LiveData<List<PostDetail>> = _posts
     val loading: LiveData<Boolean> = _loading
-    var disposable: Disposable? = null
+    private var disposable: Disposable? = null
 
     init {
         _loading.value = true
-        disposable = postsRepository.getPosts().subscribe({
+        disposable = postsRepository.getPostsWithDetails().subscribe({
             it?.let {
                 _posts.value = it
                 _loading.value = false

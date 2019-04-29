@@ -51,7 +51,7 @@ class PostActivityTest : AutoCloseKoinTest() {
         scenario = ActivityScenario.launch(
             PostActivity.getStartIntent(
                 getApplicationContext<PostsApplication>(),
-                Post(ID, TITLE)
+                PostDetail(Post(ID, TITLE),"","",0)
             )
         )
     }

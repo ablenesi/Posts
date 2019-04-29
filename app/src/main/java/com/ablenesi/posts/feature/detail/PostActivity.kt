@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.ablenesi.posts.R
 import com.ablenesi.posts.core.model.Post
+import com.ablenesi.posts.core.model.PostDetail
 import com.ablenesi.posts.databinding.ActivityPostBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +29,7 @@ class PostActivity : AppCompatActivity() {
         private const val TITLE_EXTRA = "title"
         private const val ID_EXTRA = "id"
 
-        fun getStartIntent(context: Context, post: Post): Intent? {
+        fun getStartIntent(context: Context, post: PostDetail): Intent? {
             return Intent(context, PostActivity::class.java)
                 .putExtra(TITLE_EXTRA, post.title)
                 .putExtra(ID_EXTRA, post.id)

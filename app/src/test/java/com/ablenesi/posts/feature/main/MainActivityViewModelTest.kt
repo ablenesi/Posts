@@ -2,6 +2,7 @@ package com.ablenesi.posts.feature.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.ablenesi.posts.core.model.Post
+import com.ablenesi.posts.core.model.PostDetail
 import com.ablenesi.posts.core.repository.PostsRepository
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
@@ -23,7 +24,7 @@ class MainActivityViewModelTest {
     @Before
     fun setUp() {
         mockPostsRepository = mock()
-        whenever(mockPostsRepository.getPosts()).thenReturn(Single.error(Throwable()))
+        whenever(mockPostsRepository.getPostsWithDetails()).thenReturn(Single.error(Throwable()))
     }
 
     @Test
@@ -38,7 +39,7 @@ class MainActivityViewModelTest {
         val testObserver = TestObserver<Unit>()
         val getPosts = Single.just(POSTS)
             .doOnSubscribe(testObserver::onSubscribe)
-        whenever(mockPostsRepository.getPosts()).thenReturn(getPosts)
+        whenever(mockPostsRepository.getPostsWithDetails()).thenReturn(getPosts)
 
         sut = MainActivityViewModel(mockPostsRepository)
 
@@ -48,7 +49,7 @@ class MainActivityViewModelTest {
     @Test
     fun `WHEN getPosts succeeds THAN posts is updated`() {
         val getPosts = Single.just(POSTS)
-        whenever(mockPostsRepository.getPosts()).thenReturn(getPosts)
+        whenever(mockPostsRepository.getPostsWithDetails()).thenReturn(getPosts)
 
         sut = MainActivityViewModel(mockPostsRepository)
 
@@ -58,7 +59,7 @@ class MainActivityViewModelTest {
     @Test
     fun `WHEN getPosts succeeds THAN loading is false`() {
         val getPosts = Single.just(POSTS)
-        whenever(mockPostsRepository.getPosts()).thenReturn(getPosts)
+        whenever(mockPostsRepository.getPostsWithDetails()).thenReturn(getPosts)
 
         sut = MainActivityViewModel(mockPostsRepository)
 
@@ -66,6 +67,6 @@ class MainActivityViewModelTest {
     }
 
     companion object {
-        private val POSTS = listOf(Post(1, "test1"))
+        private val POSTS = listOf(PostDetail(Post(1, "test1"),"","",0))
     }
 }

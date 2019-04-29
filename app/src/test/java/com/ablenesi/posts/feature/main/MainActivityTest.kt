@@ -12,6 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import com.ablenesi.posts.R
 import com.ablenesi.posts.core.model.Post
+import com.ablenesi.posts.core.model.PostDetail
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import org.hamcrest.Description
@@ -35,7 +36,7 @@ class MainActivityTest : AutoCloseKoinTest() {
 
     private lateinit var scenario: ActivityScenario<MainActivity>
     private lateinit var mockMainViewModel: MainActivityViewModel
-    private lateinit var posts: MutableLiveData<List<Post>>
+    private lateinit var posts: MutableLiveData<List<PostDetail>>
     private lateinit var loading: MutableLiveData<Boolean>
 
     @Before
@@ -72,13 +73,16 @@ class MainActivityTest : AutoCloseKoinTest() {
 
     @Test
     fun `WHEN posts are set THEN the UI displays them`() {
-        val postValues = listOf(Post(1, "test1"), Post(2, "test2"))
+        val postValues = listOf(
+            PostDetail(Post(1, "test1"),"content", "uresname", 10),
+            PostDetail(Post(2, "test2"),"content", "uresname", 10)
+        )
 
         posts.postValue(postValues)
 
         onView(withId(R.id.posts_list))
-            .check(matches(atPosition(0, withText("test1"))))
-            .check(matches(atPosition(1, withText("test2"))))
+            .check(matches(atPosition(0, hasDescendant(withText("test1")))))
+            .check(matches(atPosition(1, hasDescendant(withText("test2")))))
     }
 
     /*

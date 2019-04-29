@@ -7,17 +7,34 @@
 
         <variable
                 name="post"
-                type="com.ablenesi.posts.core.model.Post"/>
+                type="com.ablenesi.posts.core.model.PostDetail"/>
     </data>
 
-    <TextView
-            style="@style/post_title"
-            android:id="@+id/title"
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{post.title}"
-            android:transitionName="@{post.title}"
-            android:background="?attr/selectableItemBackground"
-            tools:text="Telus Health Launches Babylon App: Visit a Doctor via iPhone or Android"/>
+            android:orientation="vertical">
+
+        <TextView
+                style="@style/post_title"
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{post.title}"
+                android:transitionName="@{post.title}"
+                android:background="?attr/selectableItemBackground"
+                tools:text="Nutmeg investor update: April 2019"/>
+
+        <TextView
+                android:id="@+id/author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/post_username(post.userName)}"
+                android:background="?attr/selectableItemBackground"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/item_vertical_gutter"
+                tools:text="by Shaun Port"/>
+
+    </LinearLayout>
 
 </layout>

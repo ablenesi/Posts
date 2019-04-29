@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.ablenesi.posts.R
 import com.ablenesi.posts.core.model.Post
+import com.ablenesi.posts.core.model.PostDetail
 import com.ablenesi.posts.databinding.ActivityMainBinding
 import com.ablenesi.posts.feature.detail.PostActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,9 +21,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        val adapter = PostsAdapter(object : DiffUtil.ItemCallback<Post>() {
-            override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean = oldItem.id == newItem.id
-            override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean = oldItem == newItem
+        val adapter = PostsAdapter(object : DiffUtil.ItemCallback<PostDetail>() {
+            override fun areItemsTheSame(oldItem: PostDetail, newItem: PostDetail): Boolean = oldItem.id == newItem.id
+            override fun areContentsTheSame(oldItem: PostDetail, newItem: PostDetail): Boolean = oldItem == newItem
         }) { post, view ->
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, post.title)
             startActivity(PostActivity.getStartIntent(this@MainActivity, post), options.toBundle())
