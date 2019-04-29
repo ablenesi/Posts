@@ -19,7 +19,7 @@ class MainActivityViewModel(postsRepository: PostsRepository) : ViewModel() {
         _loading.value = true
         disposable = postsRepository.getPostsWithDetails().subscribe({
             it?.let {
-                _posts.value = it
+                _posts.value = it.take(10)
                 _loading.value = false
             }
         }, {
