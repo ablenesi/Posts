@@ -29,7 +29,7 @@
                     android:text="@{viewModel.title}"
                     android:transitionName="@{viewModel.title}"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Telus Health Launches Babylon App: Visit a Doctor via iPhone or Android"/>
+                    tools:text="Nutmeg investor update: April 2019"/>
 
             <TextView
                     android:id="@+id/username"
