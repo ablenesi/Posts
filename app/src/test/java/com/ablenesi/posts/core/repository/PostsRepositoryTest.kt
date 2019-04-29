@@ -73,6 +73,17 @@ class PostsRepositoryTest {
         testObserver.assertValue(PostDetail(post, BODY, USER_NAME, numberOfCommentsToFirstPost))
     }
 
+    @Test
+    fun `WHEN getPostsWithDetails is called THEN the returned List contains all Posts with details`() {
+        whenever(remoteSource.posts()).thenReturn(Single.just(postDTOs))
+        whenever(remoteSource.users()).thenReturn(Single.just(listOf(userDTO)))
+        whenever(remoteSource.comments()).thenReturn(Single.just(commentDTOs))
+
+        val testObserver = sut.getPostsWithDetails().test()
+
+        testObserver.assertValue(listOf(PostDetail(post, BODY, USER_NAME, numberOfCommentsToFirstPost)))
+    }
+
     companion object {
         private const val POST_ID = 1
         private const val ANOTHER_POST_ID = 2

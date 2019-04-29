@@ -7,6 +7,7 @@ import com.ablenesi.posts.core.networking.dto.CommentDTO
 import com.ablenesi.posts.core.networking.dto.PostDTO
 import com.ablenesi.posts.core.networking.dto.UserDTO
 import com.ablenesi.posts.core.networking.dto.toPost
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.Function3
 
@@ -35,6 +36,13 @@ class PostsRepository(
                 val user = users.first { it.id == post.userId }
                 PostDetail(post.toPost(), post.body, user.username, comments.count { it.postId == post.id })
             })
+
+    fun getPostsWithDetails(): Single<List<PostDetail>> =
+        getPosts().flatMap {
+            Observable.fromIterable(it)
+                .flatMap { post -> getPostDetail(post.id).toObservable() }
+                .toList()
+        }
 
     private var posts: List<PostDTO>? = null
     private var users: List<UserDTO>? = null
